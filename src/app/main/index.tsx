@@ -3,6 +3,7 @@ import { MaterialIcons } from "@expo/vector-icons"
 import { styles } from "./styles"
 import { colors } from "@/styles/colors"
 import { Category } from "@/components/category"
+import { TodoList } from "@/components/todo-list/todo-list"
 
 export default function Main() {
   return (
@@ -14,7 +15,7 @@ export default function Main() {
         </TouchableOpacity >
       </View>
       <Category />
-
+      <TodoList />
     </View>
   )
 }
