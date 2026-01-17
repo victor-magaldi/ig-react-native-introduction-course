@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, FlatList } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
 import { Checkbox } from 'expo-checkbox';
 
@@ -18,19 +18,25 @@ interface TodoItemProps {
 function TodoItem({ task, deleteTask, toggleCompleted }: TodoItemProps) {
   return (
     <View style={styles.itemContainer}>
-      <Checkbox
-        // style={styles.checkbox}
-        value={task.completed}
-        onValueChange={() => toggleCompleted(task.id)}
-        color={task.completed ? '#4630EB' : undefined}
-      ></Checkbox>/
-      <Text style={[
-        styles.text,
-        { textDecorationLine: task.completed ? 'line-through' : 'none' }
-      ]}>
-        {task.text}
-      </Text>
-      <Button title="X" color="red" onPress={() => deleteTask(task.id)} />
+      <TouchableOpacity
+        style={styles.clickableArea}
+        onPress={() => toggleCompleted(task.id)}
+        activeOpacity={0.7}
+      >
+        <Checkbox
+          // style={styles.checkbox}
+          value={task.completed}
+          onValueChange={() => toggleCompleted(task.id)}
+          color={task.completed ? '#4630EB' : undefined}
+        ></Checkbox>/
+        <Text style={[
+          styles.text,
+          { textDecorationLine: task.completed ? 'line-through' : 'none' }
+        ]}>
+          {task.text}
+        </Text>
+        <Button title="X" color="red" onPress={() => deleteTask(task.id)} />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -94,6 +100,10 @@ export function TodoList() {
 
 const styles = StyleSheet.create({
   container: { padding: 20, flex: 1, backgroundColor: '#fff' },
+  clickableArea: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
