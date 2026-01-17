@@ -1,9 +1,8 @@
-import { Image, TouchableOpacity, View } from "react-native"
-import { MaterialIcons } from "@expo/vector-icons"
-import { styles } from "./styles"
+import { Categories } from "@/components/categories"
 import { colors } from "@/styles/colors"
-import { Category } from "@/components/category"
-import { TodoList } from "@/components/todo-list/todo-list"
+import { MaterialIcons } from "@expo/vector-icons"
+import { Image, TouchableOpacity, View } from "react-native"
+import { styles } from "./styles"
 
 export default function Main() {
   return (
@@ -14,10 +13,8 @@ export default function Main() {
           <MaterialIcons name="add" size={32} color={colors.green[300]} />
         </TouchableOpacity >
       </View>
-      <Category name="code" icon="code" isSelected />
-      <Category name="Site" icon="language" isSelected={false} />
-      <Category name="Video" icon="movie" isSelected={false} />
-      <TodoList />
+      <Categories />
+      {/* <TodoList /> */}
     </View>
   )
 }
