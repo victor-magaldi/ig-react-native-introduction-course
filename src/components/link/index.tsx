@@ -12,11 +12,10 @@ interface LinkProps {
 export function Link({ name, url, onDetails }: LinkProps) {
   return (
     <View style={styles.container}>
-      <View style={styles.container}>
+      <View style={styles.details}>
         <Text style={styles.name} numberOfLines={1}>
           {name}
         </Text>
-
         <Text style={styles.url} numberOfLines={1}>
           {url}
         </Text>
