@@ -1,4 +1,5 @@
 import { Categories } from "@/components/categories"
+import { Link } from "@/components/link"
 import { colors } from "@/styles/colors"
 import { MaterialIcons } from "@expo/vector-icons"
 import { Image, TouchableOpacity, View } from "react-native"
@@ -14,6 +15,7 @@ export default function Main() {
         </TouchableOpacity >
       </View>
       <Categories />
+      <Link name="Google" url="www.google.com.br" onDetails={() => { console.log("Click") }} />
       {/* <TodoList /> */}
     </View>
   )
