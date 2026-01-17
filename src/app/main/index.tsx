@@ -14,7 +14,10 @@ export default function Main() {
           <MaterialIcons name="add" size={32} color={colors.green[300]} />
         </TouchableOpacity >
       </View>
-      <Category />
+      <Category name="code" icon="code" />
+      <Category name="Site" icon="language" />
+      <Category name="Video" icon="movie" />
+
       <TodoList />
     </View>
   )
