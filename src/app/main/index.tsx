@@ -1,5 +1,6 @@
 import { Categories } from "@/components/categories"
 import { Link } from "@/components/link"
+import { Option } from "@/components/option"
 import { colors } from "@/styles/colors"
 import { MaterialIcons } from "@expo/vector-icons"
 import { FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native"
@@ -43,6 +44,11 @@ export default function Main() {
             <Text style={styles.modalUrl}>
               https:www.google.com.br
             </Text>
+
+            <View style={styles.modalFooter}>
+              <Option name="Excluir" icon="delete" variant="secondary" />
+              <Option name="Abrir" icon="language" />
+            </View>
           </View>
         </View>
       </Modal>
