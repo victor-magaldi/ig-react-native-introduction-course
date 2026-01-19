@@ -3,5 +3,12 @@ import { Stack } from "expo-router";
 
 export default function Layoult() {
   const backgroundColor = colors.gray[950]
-  return <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor } }} />
+  return <Stack
+    screenOptions={
+      {
+        headerShown: false,
+        contentStyle: { backgroundColor },
+        animation: "slide_from_right",
+      }}
+  />
 }
