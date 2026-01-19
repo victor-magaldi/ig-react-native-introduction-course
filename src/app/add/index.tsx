@@ -2,6 +2,7 @@ import { MaterialIcons } from "@expo/vector-icons"
 import { Text, TouchableOpacity, View } from "react-native"
 
 import { Categories } from "@/components/categories"
+import { Input } from "@/components/input"
 import { colors } from "@/styles/colors"
 import { router } from "expo-router"
 import { styles } from "./styles"
@@ -18,6 +19,11 @@ export default function Add() {
       </View>
       <Text style={styles.label}>Selecione Sua Categoria</Text>
       <Categories />
+
+      <View style={styles.form}>
+        <Input placeholder="Nome" />
+        <Input placeholder="Url" />
+      </View>
     </View>
   )
 }
