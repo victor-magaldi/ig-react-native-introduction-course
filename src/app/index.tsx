@@ -7,8 +7,8 @@ import { Alert, FlatList, Image, Modal, Text, TouchableOpacity, View } from "rea
 
 import { linksStorage, LinkStorage } from "@/storage/link-storage"
 import { categories } from "@/utils/categories"
-import { router } from "expo-router"
-import { useEffect, useState } from "react"
+import { router, useFocusEffect } from "expo-router"
+import { useCallback, useState } from "react"
 import { styles } from "./styles"
 
 export default function Main() {
@@ -23,9 +23,12 @@ export default function Main() {
       Alert.alert("Erro", "Não foi possível listar os links")
     }
   }
-  useEffect(() => {
-    getLinks()
-  }, [])
+
+  useFocusEffect(
+    useCallback(() => {
+      getLinks()
+    }, []),
+  )
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -42,9 +45,9 @@ export default function Main() {
       <FlatList
         data={links}
         keyExtractor={(item) => item.id}
-        renderItem={() => {
+        renderItem={({ item: { name, url, id } }) => {
           return (
-            <Link name="Google" url="www.google.com.br" onDetails={() => { console.log("Click") }} />
+            <Link key={id} name={name} url={url} onDetails={() => { console.log("Click") }} />
           )
         }}
         style={styles.links}
