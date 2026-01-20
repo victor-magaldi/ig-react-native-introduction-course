@@ -10,11 +10,12 @@ import { useState } from "react"
 import { styles } from "./styles"
 
 export default function Add() {
+  const [category, setCategory] = useState('')
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')
 
   const handleAdd = () => {
-    console.log("name", name, url)
+    console.log("name", name, url, category)
 
   }
   return (
@@ -27,7 +28,10 @@ export default function Add() {
         <Text style={styles.title}>Novo</Text>
       </View>
       <Text style={styles.label}>Selecione Sua Categoria</Text>
-      <Categories />
+      <Categories
+        selected={category}
+        onChange={setCategory}
+      />
 
       <View style={styles.form}>
         <Input

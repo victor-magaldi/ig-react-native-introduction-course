@@ -5,10 +5,14 @@ import { colors } from "@/styles/colors"
 import { MaterialIcons } from "@expo/vector-icons"
 import { FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native"
 
+import { categories } from "@/utils/categories"
 import { router } from "expo-router"
+import { useState } from "react"
 import { styles } from "./styles"
 
 export default function Main() {
+  const [category, setCategory] = useState(categories[0].name)
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -17,7 +21,10 @@ export default function Main() {
           <MaterialIcons name="add" size={32} color={colors.green[300]} />
         </TouchableOpacity >
       </View>
-      <Categories />
+      <Categories
+        selected={category}
+        onChange={setCategory}
+      />
       {/* <TodoList /> */}
       <FlatList
         data={[0, 2, 3, 4]}
