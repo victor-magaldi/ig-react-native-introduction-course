@@ -3,16 +3,29 @@ import { Link } from "@/components/link"
 import { Option } from "@/components/option"
 import { colors } from "@/styles/colors"
 import { MaterialIcons } from "@expo/vector-icons"
-import { FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native"
+import { Alert, FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native"
 
+import { linksStorage, LinkStorage } from "@/storage/link-storage"
 import { categories } from "@/utils/categories"
 import { router } from "expo-router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { styles } from "./styles"
 
 export default function Main() {
   const [category, setCategory] = useState(categories[0].name)
+  const [links, setLinks] = useState<LinkStorage[]>([])
 
+  async function getLinks() {
+    try {
+      const response = await linksStorage.getData()
+      setLinks(response)
+    } catch (err) {
+      Alert.alert("Erro", "Não foi possível listar os links")
+    }
+  }
+  useEffect(() => {
+    getLinks()
+  }, [])
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -27,8 +40,8 @@ export default function Main() {
       />
       {/* <TodoList /> */}
       <FlatList
-        data={[0, 2, 3, 4]}
-        keyExtractor={(item) => String(item)}
+        data={links}
+        keyExtractor={(item) => item.id}
         renderItem={() => {
           return (
             <Link name="Google" url="www.google.com.br" onDetails={() => { console.log("Click") }} />
