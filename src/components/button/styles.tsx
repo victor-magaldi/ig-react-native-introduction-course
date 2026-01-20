@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
     alignContent: "center"
   },
   title: {
+    textAlign: "center",
     color: colors.green[900],
     fontSize: 16,
     fontWeight: "600"
