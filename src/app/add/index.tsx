@@ -4,6 +4,7 @@ import { Alert, Text, TouchableOpacity, View } from "react-native"
 import { Button } from "@/components/button"
 import { Categories } from "@/components/categories"
 import { Input } from "@/components/input"
+import { linksStorage } from "@/storage/link-storage"
 import { colors } from "@/styles/colors"
 import { router } from "expo-router"
 import { useState } from "react"
@@ -14,18 +15,29 @@ export default function Add() {
   const [name, setName] = useState('')
   const [url, setUrl] = useState('')
 
-  const handleAdd = () => {
-    if (!category) {
-      return Alert.alert("Categoria", "Selecione a Categoria")
+  const handleAdd = async () => {
+    try {
+      if (!category) {
+        return Alert.alert("Categoria", "Selecione a Categoria")
+      }
+      if (!name) {
+        return Alert.alert("Nome", "Informe o Nome")
+      }
+      if (!url.trim()) {
+        return Alert.alert("URL", "Informe a Url")
+      }
+      await linksStorage.setData(
+        {
+          id: new Date().getTime().toString(),
+          name,
+          url,
+          category
+        })
+      const data = await linksStorage.getData()
+      console.log("data", data)
+    } catch (err) {
+      Alert.alert("Erro", "Não foi possível salvar o link")
     }
-    if (!name) {
-      return Alert.alert("Nome", "Informe o Nome")
-    }
-    if (!url.trim()) {
-      return Alert.alert("URL", "Informe a Url")
-    }
-    console.log("name", name, url, category)
-
   }
   return (
     <View style={styles.container}>
@@ -33,7 +45,6 @@ export default function Add() {
         <TouchableOpacity onPress={() => { router.back() }}>
           <MaterialIcons name="arrow-back" size={32} color={colors.gray[200]} />
         </TouchableOpacity>
-
         <Text style={styles.title}>Novo</Text>
       </View>
       <Text style={styles.label}>Selecione Sua Categoria</Text>
@@ -47,11 +58,13 @@ export default function Add() {
           placeholder="Nome"
           onChangeText={setName}
           value={name}
+          autoCapitalize="none"
         />
         <Input
           placeholder="Url"
           onChangeText={setUrl}
           value={url}
+          autoCapitalize="none"
         />
         <Button
           title="Adicionar"
