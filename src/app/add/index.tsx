@@ -6,9 +6,17 @@ import { Categories } from "@/components/categories"
 import { Input } from "@/components/input"
 import { colors } from "@/styles/colors"
 import { router } from "expo-router"
+import { useState } from "react"
 import { styles } from "./styles"
 
 export default function Add() {
+  const [name, setName] = useState('')
+  const [url, setUrl] = useState('')
+
+  const handleAdd = () => {
+    console.log("name", name, url)
+
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -22,9 +30,21 @@ export default function Add() {
       <Categories />
 
       <View style={styles.form}>
-        <Input placeholder="Nome" />
-        <Input placeholder="Url" />
-        <Button title="Adicionar" activeOpacity={0.7} />
+        <Input
+          placeholder="Nome"
+          onChangeText={setName}
+          value={name}
+        />
+        <Input
+          placeholder="Url"
+          onChangeText={setUrl}
+          value={url}
+        />
+        <Button
+          title="Adicionar"
+          activeOpacity={0.7}
+          onPress={handleAdd}
+        />
       </View>
     </View>
   )
