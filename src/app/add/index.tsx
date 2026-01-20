@@ -33,8 +33,10 @@ export default function Add() {
           url,
           category
         })
-      const data = await linksStorage.getData()
-      console.log("data", data)
+      Alert.alert("Sucesso", "Novo Link Adicionado", [{
+        text: "Ok",
+        onPress: () => { router.back() }
+      }])
     } catch (err) {
       Alert.alert("Erro", "Não foi possível salvar o link")
     }
