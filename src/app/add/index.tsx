@@ -1,5 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons"
-import { Text, TouchableOpacity, View } from "react-native"
+import { Alert, Text, TouchableOpacity, View } from "react-native"
 
 import { Button } from "@/components/button"
 import { Categories } from "@/components/categories"
@@ -15,6 +15,15 @@ export default function Add() {
   const [url, setUrl] = useState('')
 
   const handleAdd = () => {
+    if (!category) {
+      return Alert.alert("Categoria", "Selecione a Categoria")
+    }
+    if (!name) {
+      return Alert.alert("Nome", "Informe o Nome")
+    }
+    if (!url.trim()) {
+      return Alert.alert("URL", "Informe a Url")
+    }
     console.log("name", name, url, category)
 
   }
