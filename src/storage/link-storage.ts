@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LINKS_STORAGE_KEY = "links-storage"
 
-interface LinkStorage {
+export interface LinkStorage {
   id: string,
   name: string,
   url: string,
@@ -24,5 +24,15 @@ const setData = async (newLink: LinkStorage) => {
     throw err
   }
 };
+const remove = async (id: string) => {
+  try {
+    const storage = await getData()
+    const update = storage.filter(item => item.id !== id)
 
-export const linksStorage = { getData, setData }
+    await AsyncStorage.setItem(LINKS_STORAGE_KEY, JSON.stringify(update))
+  } catch (error) {
+    throw error
+  }
+}
+
+export const linksStorage = { getData, setData, remove }

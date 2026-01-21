@@ -17,6 +17,22 @@ export default function Main() {
   const [links, setLinks] = useState<LinkStorage[]>([])
   const [link, setLink] = useState<LinkStorage>({} as LinkStorage)
 
+  async function removeLink() {
+    try {
+      await linksStorage.remove(link.id)
+      getLinks()
+      setShowModal(false)
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possíve excluir")
+    }
+
+  }
+  async function handleDelete() {
+    Alert.alert("Excluir", "Deseja realmente excluir?", [
+      { style: "cancel", text: "Não" },
+      { text: "Sim", onPress: removeLink },
+    ])
+  }
 
   async function getLinks() {
     try {
@@ -83,7 +99,7 @@ export default function Main() {
             </Text>
 
             <View style={styles.modalFooter}>
-              <Option name="Excluir" icon="delete" variant="secondary" />
+              <Option name="Excluir" icon="delete" variant="secondary" onPress={handleDelete} />
               <Option name="Abrir" icon="language" />
             </View>
           </View>
