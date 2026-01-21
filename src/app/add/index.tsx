@@ -6,6 +6,7 @@ import { Categories } from "@/components/categories"
 import { Input } from "@/components/input"
 import { linksStorage } from "@/storage/link-storage"
 import { colors } from "@/styles/colors"
+import { isValidUrl } from "@/utils/isValidUrl"
 import { router } from "expo-router"
 import { useState } from "react"
 import { styles } from "./styles"
@@ -23,8 +24,8 @@ export default function Add() {
       if (!name) {
         return Alert.alert("Nome", "Informe o Nome")
       }
-      if (!url.trim()) {
-        return Alert.alert("URL", "Informe a Url")
+      if (!isValidUrl(url)) {
+        return Alert.alert("URL", "Informe uma Url correta")
       }
       await linksStorage.setData(
         {
@@ -63,7 +64,7 @@ export default function Add() {
           autoCapitalize="none"
         />
         <Input
-          placeholder="Url"
+          placeholder="https://www.google.com/"
           onChangeText={setUrl}
           value={url}
           autoCapitalize="none"
