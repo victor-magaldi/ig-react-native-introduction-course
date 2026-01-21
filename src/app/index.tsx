@@ -3,7 +3,7 @@ import { Link } from "@/components/link"
 import { Option } from "@/components/option"
 import { colors } from "@/styles/colors"
 import { MaterialIcons } from "@expo/vector-icons"
-import { Alert, FlatList, Image, Modal, Text, TouchableOpacity, View } from "react-native"
+import { Alert, FlatList, Image, Linking, Modal, Text, TouchableOpacity, View } from "react-native"
 
 import { linksStorage, LinkStorage } from "@/storage/link-storage"
 import { categories } from "@/utils/categories"
@@ -45,6 +45,14 @@ export default function Main() {
   function handleDetails(selected: LinkStorage) {
     setShowModal(true)
     setLink(selected)
+  }
+  async function handleOpen() {
+    try {
+      await Linking.openURL(link.url)
+    } catch (err) {
+      Alert.alert("Link", "Não foi possível abrir o Link")
+      console.log(err)
+    }
   }
 
   useFocusEffect(
@@ -99,8 +107,15 @@ export default function Main() {
             </Text>
 
             <View style={styles.modalFooter}>
-              <Option name="Excluir" icon="delete" variant="secondary" onPress={handleDelete} />
-              <Option name="Abrir" icon="language" />
+              <Option
+                name="Excluir"
+                icon="delete"
+                variant="secondary"
+                onPress={handleDelete} />
+              <Option
+                name="Abrir"
+                icon="language"
+                onPress={handleOpen} />
             </View>
           </View>
         </View>
