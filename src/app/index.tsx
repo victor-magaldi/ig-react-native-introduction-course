@@ -12,8 +12,11 @@ import { useCallback, useState } from "react"
 import { styles } from "./styles"
 
 export default function Main() {
+  const [showModal, setShowModal] = useState(false)
   const [category, setCategory] = useState(categories[0].name)
   const [links, setLinks] = useState<LinkStorage[]>([])
+  const [link, setLink] = useState<LinkStorage>({} as LinkStorage)
+
 
   async function getLinks() {
     try {
@@ -22,6 +25,10 @@ export default function Main() {
     } catch (err) {
       Alert.alert("Erro", "Não foi possível listar os links")
     }
+  }
+  function handleDetails(selected: LinkStorage) {
+    setShowModal(true)
+    setLink(selected)
   }
 
   useFocusEffect(
@@ -41,33 +48,38 @@ export default function Main() {
         selected={category}
         onChange={setCategory}
       />
-      {/* <TodoList /> */}
       <FlatList
-        data={links}
+        data={links.filter(item => item.category === category)}
         keyExtractor={(item) => item.id}
-        renderItem={({ item: { name, url, id } }) => {
+        renderItem={({ item }) => {
+          const { id, name, url } = item;
           return (
-            <Link key={id} name={name} url={url} onDetails={() => { console.log("Click") }} />
+            <Link
+              key={id}
+              name={name}
+              url={url}
+              onDetails={() => { handleDetails(item) }}
+            />
           )
         }}
         style={styles.links}
         contentContainerStyle={styles.linksContent}
         showsVerticalScrollIndicator={false}
       />
-      <Modal transparent visible={false}>
+      <Modal transparent visible={showModal} animationType="slide">
         <View style={styles.modal}>
           <View style={styles.modalContent}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalCategory}>Curso</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => { setShowModal(false) }}>
                 <MaterialIcons name="close" size={20} color={colors.gray[400]} />
               </TouchableOpacity>
             </View>
             <Text style={styles.modalLinkName}>
-              Rocketseat
+              {link.name}
             </Text>
             <Text style={styles.modalUrl}>
-              https:www.google.com.br
+              {link.url}
             </Text>
 
             <View style={styles.modalFooter}>
